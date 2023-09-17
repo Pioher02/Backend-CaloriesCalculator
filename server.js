@@ -1,24 +1,30 @@
 const express = require("express");
 const cors = require("cors");
-const connection = require("./db/connection");
-
+const connection = require("./Backend/db/connection");
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
 
-require("./config/config-passport");
+// Configuración de CORS
+const corsOptions = {
+  origin: "*", // "https://tudominio.com", Permite solicitudes desde cualquier origen (durante el desarrollo)
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+app.use(cors(corsOptions)); // Aplica la configuración de CORS
 
-const routerApi = require ("./api");
+require("./Backend/config/config-passport");
+
+const routerApi = require ("./Backend/api");
 app.use("/api", routerApi);
 
 app.use((_, res) => {
   res.status(404).json({
     status: "error",
     code: 404,
-    message: `Use api on routes: 
+    message: `Use api on routes:
     /api/signup - registration user {username, email, password}
     /api/login - login {email, password}`,
     data: "Not found",
@@ -35,7 +41,7 @@ app.use((err, _, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 connection
   .then(() => {
