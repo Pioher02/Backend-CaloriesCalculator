@@ -1,7 +1,6 @@
-// api/index.js
-const express = require("express");
-const router = express.Router();
+express = require("express");
 
+const router = express.Router();
 const signupCtrl = require("../controller/signup");
 const loginCtrl = require("../controller/login");
 const logoutCtrl = require("../controller/logout");
@@ -18,9 +17,7 @@ router.post("/users/login", loginCtrl);
 
 router.post("/users/logout", validToken, auth, logoutCtrl);
 
-
-
 // Ruta para obtener alimentos no saludables
 router.get('/not-allowed-foods', getNotAllowedFoods);
 
-
+module.exports = router;
