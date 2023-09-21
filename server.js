@@ -1,18 +1,24 @@
 const express = require("express");
 const cors = require("cors");
 const connection = require("./db/connection");
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
 
 require("dotenv").config();
 
 const app = express();
 
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors());
+
+//ruta para obtener alimentos no permitidos por tipo de sangre
+const notAllowedFoodsRoutes = require('./routes/notAllowedFoodsRoutes');
+
+app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
 
 require("./config/config-passport");
-
-const routerApi = require ("./api");
-app.use("/api", routerApi);
 
 app.use((_, res) => {
   res.status(404).json({
@@ -47,3 +53,4 @@ connection
     console.log(`Server not running. Error .message ${err.message}`);
     process.exit(1);
   });
+
