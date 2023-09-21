@@ -4,7 +4,10 @@ module.exports = {
         "browser": true,
         "es2021": true,
 
+        node: true, // Esto indica que estás en un entorno Node.js
+
     },
+
     "extends": "eslint:recommended",
     "overrides": [
         {

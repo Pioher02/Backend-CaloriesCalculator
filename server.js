@@ -1,5 +1,5 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
 const connection = require("./db/connection");
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -17,6 +17,12 @@ app.use(express.json());
 const notAllowedFoodsRoutes = require('./routes/notAllowedFoodsRoutes');
 
 app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true, // Permite el uso de credenciales en las solicitudes
+}));
+
 
 require("./config/config-passport");
 
@@ -44,7 +50,7 @@ app.use((err, _, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 connection
   .then(() => {
@@ -56,4 +62,17 @@ connection
     console.log(`Server not running. Error .message ${err.message}`);
     process.exit(1);
   });
+
+
+// // Ruta para obtener los alimentos no recomendados según el tipo de sangre
+app.get('/api/not-allowed-foods/:bloodType', (req, res) => {
+  const { bloodType } = req.params;
+  // Lee el archivo JSON con los alimentos no recomendados desde la carpeta models
+  const notAllowedFoodsData = require('./models/es-productos.json');
+
+  // Filtra los alimentos no recomendados según el tipo de sangre
+  const foodsForBloodType = notAllowedFoodsData[bloodType] || [];
+
+  res.json(foodsForBloodType);
+});
 

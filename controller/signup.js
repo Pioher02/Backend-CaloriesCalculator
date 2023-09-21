@@ -3,8 +3,9 @@ const { getUserByEmail } = require("../service/user");
 
 const signupCtrl = async (req, res, next) => {
   const { username, email, password } = req.body;
+  
   const user = await getUserByEmail(email);
-
+  
   if (user) {
     return res.status(409).json({
       status: "Conflict",
