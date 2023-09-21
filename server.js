@@ -20,6 +20,9 @@ app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
 
 require("./config/config-passport");
 
+const routerApi = require("./api");
+app.use("/api", routerApi);
+
 app.use((_, res) => {
   res.status(404).json({
     status: "error",
