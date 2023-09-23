@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bCrypt = require("bcryptjs");
+const { object } = require("joi");
 
 const Schema = mongoose.Schema;
 
@@ -17,6 +18,15 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "Password required"],
+  },
+  calorie: {
+    type: String,
+  },
+  notRecommendedProduct: {
+    type: Array,
+  },
+  data: {
+    type: Object,
   },
   
   token: {

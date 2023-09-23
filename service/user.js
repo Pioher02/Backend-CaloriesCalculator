@@ -12,4 +12,8 @@ const updateUserToken = async ({id, token}) => {
     return User.findByIdAndUpdate({ _id: id }, { token: token });
 }
 
-module.exports = { getUserById, getUserByEmail, updateUserToken };
+const updateUserInfo = async ({id, fields}) => {
+  return User.findByIdAndUpdate({ _id: id }, fields, { new: true });
+}
+
+module.exports = { getUserById, getUserByEmail, updateUserToken, updateUserInfo };
