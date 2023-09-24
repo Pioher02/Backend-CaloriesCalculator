@@ -1,23 +1,18 @@
-const { updateUserInfo } = require("../service/user");
+const { getUserById } = require("../service/user");
 
-const updateUserCtrl = async (req, res, next) => {
+const getUserInfoCtrl = async (req, res, next) => {
   const { id } = req.user;
-  const { calorie, notRecommendedProduct, data } = req.body;
 
   try {
-    const result = await updateUserInfo({id: id, fields: {
-      calorie,
-      notRecommendedProduct,
-      data,
-    }});
+    const result = await getUserById(id);
+
     if (result) {
       res.json({
-        status: "success update",
+        status: "success",
         code: 200,
         data: result,
       });
     } else {
-      
       res.status(404).json({
         status: "error",
         code: 404,
@@ -31,4 +26,4 @@ const updateUserCtrl = async (req, res, next) => {
   }
 };
 
-module.exports = updateUserCtrl;
+module.exports = getUserInfoCtrl;
