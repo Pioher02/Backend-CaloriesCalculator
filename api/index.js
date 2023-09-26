@@ -9,6 +9,7 @@ const auth = require("../middleware/auth");
 const { getNotAllowedFoods } = require("../controller/caloriesController"); // Importa el controlador correspondiente
 const getUserInfoCtrl = require("../controller/getUserInfo");
 const getAllowedFoods = require("../controller/getAllowedFoods");
+const updateConsumeCtrl = require("../controller/updateConsume");
 
 require("dotenv").config();
 
@@ -22,7 +23,10 @@ router.post("/users/logout", validToken, auth, logoutCtrl);
 router.get("/not-allowed-foods", getNotAllowedFoods);
 
 // Ruta para guardar info de calculadora
-router.put("/users/current/:id", validToken, auth, updateUserCtrl);
+router.post("/users/current/:id", validToken, auth, updateUserCtrl);
+
+// Ruta para guardar productos consumidos
+router.post("/users/current", validToken, auth, updateConsumeCtrl);
 
 // Ruta para traer la información del Usuario
 router.get("/users/current/:id", validToken, auth, getUserInfoCtrl);
