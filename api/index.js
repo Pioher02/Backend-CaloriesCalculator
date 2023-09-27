@@ -36,6 +36,6 @@ router.get("/users/current/:id", validToken, auth, getUserInfoCtrl);
 router.get("/allowed-foods/:userBloodType", getAllowedFoods);
 
 // Ruta para obtener alimentos del día
-router.get("/diary/:dateConsume", validToken, auth, getProductsConsumedCtrl );
+router.get("/diary/:date", validToken, auth, getProductsConsumedCtrl );
 
 module.exports = router;
