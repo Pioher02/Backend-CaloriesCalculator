@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const connection = require("./db/connection");
 const corsOptions = {
+  origin: "http://localhost:3000",
   credentials: true,
-  origin: true,
 };
 
 require("dotenv").config();
