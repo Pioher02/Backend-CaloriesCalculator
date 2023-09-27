@@ -18,6 +18,15 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password required"],
   },
+  calorie: {
+    type: String,
+  },
+  notRecommendedProduct: {
+    type: Array,
+  },
+  data: {
+    type: Object,
+  },
   
   token: {
     type: String,
