@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
+const validToken = require("../middleware/validToken");
+const auth = require("../middleware/auth");
+
 const signupCtrl = require("../controller/signup");
 const loginCtrl = require("../controller/login");
 const logoutCtrl = require("../controller/logout");
 const updateUserCtrl = require("../controller/updateUser");
-const validToken = require("../middleware/validToken");
-const auth = require("../middleware/auth");
 const { getNotAllowedFoods } = require("../controller/caloriesController"); // Importa el controlador correspondiente
 const getUserInfoCtrl = require("../controller/getUserInfo");
 const getAllowedFoods = require("../controller/getAllowedFoods");
 const updateConsumeCtrl = require("../controller/updateConsume");
 const getProductsConsumedCtrl = require("../controller/getProductsConsumed");
+const deleteProductsCtrl = require("../controller/deleteProducts");
 
 require("dotenv").config();
 
@@ -37,5 +39,8 @@ router.get("/allowed-foods/:userBloodType", getAllowedFoods);
 
 // Ruta para obtener alimentos del día
 router.get("/diary/:date", validToken, auth, getProductsConsumedCtrl );
+
+// Ruta para borrar alimentos
+router.put("/diary/:date", validToken, auth, deleteProductsCtrl );
 
 module.exports = router;
