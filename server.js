@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const connection = require("./db/connection");
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://backend-calories-calculator.vercel.app',
   credentials: true,
 };
 
@@ -19,7 +19,7 @@ const notAllowedFoodsRoutes = require('./routes/notAllowedFoodsRoutes');
 app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://backend-calories-calculator.vercel.app',
   credentials: true, // Permite el uso de credenciales en las solicitudes
 }));
 
