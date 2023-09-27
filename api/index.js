@@ -10,6 +10,7 @@ const { getNotAllowedFoods } = require("../controller/caloriesController"); // I
 const getUserInfoCtrl = require("../controller/getUserInfo");
 const getAllowedFoods = require("../controller/getAllowedFoods");
 const updateConsumeCtrl = require("../controller/updateConsume");
+const getProductsConsumedCtrl = require("../controller/getProductsConsumed");
 
 require("dotenv").config();
 
@@ -33,5 +34,8 @@ router.get("/users/current/:id", validToken, auth, getUserInfoCtrl);
 
 // Ruta para obtener alimentos permitidos
 router.get("/allowed-foods/:userBloodType", getAllowedFoods);
+
+// Ruta para obtener alimentos del día
+router.get("/diary/:dateConsume", validToken, auth, getProductsConsumedCtrl );
 
 module.exports = router;
