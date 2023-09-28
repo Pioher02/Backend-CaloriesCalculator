@@ -1,8 +1,13 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const connection = require("./db/connection");
+
 const allowedOrigins = ['https://pioher02.github.io/', 'http://localhost:3000'];
 
+// const corsOptions = {
+//   origin: "https://pioher02.github.io/",
+//   credentials: true,
+// };
 
 
 require("dotenv").config();
@@ -18,6 +23,7 @@ app.use(cors({
 app.use(express.json());
 
 //ruta para obtener alimentos no permitidos por tipo de sangre
+
 const notAllowedFoodsRoutes = require('./routes/notAllowedFoodsRoutes');
 
 app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
@@ -27,6 +33,10 @@ app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
 //   credentials: true, // Permite el uso de credenciales en las solicitudes
 // }));
 
+const notAllowedFoodsRoutes = require("./routes/notAllowedFoodsRoutes");
+
+
+app.use("/api/not-allowed-foods", notAllowedFoodsRoutes);
 
 require("./config/config-passport");
 
@@ -67,16 +77,14 @@ connection
     process.exit(1);
   });
 
-
 // // Ruta para obtener los alimentos no recomendados según el tipo de sangre
-app.get('/api/not-allowed-foods/:bloodType', (req, res) => {
+app.get("/api/not-allowed-foods/:bloodType", (req, res) => {
   const { bloodType } = req.params;
   // Lee el archivo JSON con los alimentos no recomendados desde la carpeta models
-  const notAllowedFoodsData = require('./models/es-productos.json');
+  const notAllowedFoodsData = require("./models/es-productos.json");
 
   // Filtra los alimentos no recomendados según el tipo de sangre
   const foodsForBloodType = notAllowedFoodsData[bloodType] || [];
 
   res.json(foodsForBloodType);
 });
-
