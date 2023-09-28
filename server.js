@@ -1,16 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const connection = require("./db/connection");
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true,
-};
+const allowedOrigins = ['https://pioher02.github.io/', 'http://localhost:3000'];
+
+
 
 require("dotenv").config();
 
 const app = express();
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, allowedOrigins.includes(origin) || !origin);
+  },
+}));
 app.use(express.json());
 
 //ruta para obtener alimentos no permitidos por tipo de sangre
@@ -18,10 +22,10 @@ const notAllowedFoodsRoutes = require('./routes/notAllowedFoodsRoutes');
 
 app.use('/api/not-allowed-foods', notAllowedFoodsRoutes);
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true, // Permite el uso de credenciales en las solicitudes
-}));
+// app.use(cors({
+//   origin: 'http://localhost:3000',
+//   credentials: true, // Permite el uso de credenciales en las solicitudes
+// }));
 
 
 require("./config/config-passport");
