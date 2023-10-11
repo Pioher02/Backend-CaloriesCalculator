@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://pioher02.github.io/Project-CaloriesCalculator/', //'http://localhost:3000', local funciona en dev
+  origin: 'https://pioher02.github.io', //'http://localhost:3000', local funciona en dev
   credentials: true, // Permite el uso de credenciales en las solicitudes
 }));
 
