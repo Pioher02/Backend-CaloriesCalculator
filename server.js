@@ -11,6 +11,9 @@ app.use(express.json());
 app.use(cors({
   origin: 'https://pioher02.github.io', //'http://localhost:3000', local funciona en dev
   credentials: true, // Permite el uso de credenciales en las solicitudes
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  
 }));
 
 //ruta para obtener alimentos no permitidos por tipo de sangre
@@ -63,6 +66,7 @@ connection
 
 // // Ruta para obtener los alimentos no recomendados según el tipo de sangre
 app.get('/api/not-allowed-foods/:bloodType', (req, res) => {
+  response.set('Access-Control-Allow-Origin', '*');
   const { bloodType } = req.params;
   // Lee el archivo JSON con los alimentos no recomendados desde la carpeta models
   const notAllowedFoodsData = require('./models/es-productos.json');
